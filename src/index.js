@@ -10,5 +10,8 @@ module.exports = function(tree) {
     throw new Error('`fastboot-transform` requires broccoli tree as input.');
   }
 
-  return map(tree, '**/*.js', (content) => `if (typeof FastBoot === 'undefined') {\n${content}\n}`);
+  return map(tree, '**/*.js', (content) => {
+    content = content.replace('//# sourceMappingURL', '//# xxxxxxMappingURL');
+    return `if (typeof FastBoot === 'undefined') {\n${content}\n}`;
+  });
 }
